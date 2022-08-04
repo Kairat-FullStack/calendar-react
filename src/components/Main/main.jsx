@@ -6,21 +6,22 @@ export default function Main({ startDay }) {
     const GridWrapper = styled('div')`
         display: grid;
         grid-template-columns: repeat(7, 1fr);
-        grid-template-rows: repeat(6, 1fr);
-        grid-gap: 1px;
-        background-color: #404040;
+        grid-gap: 2px;
+        background-color: ${props => props.isHeader ? '#1e1f21' : '#4D4C4D'};
+        ${props => props.isHeader && 'border-bottom: 1px solid #4D4C4D'};
     `;
 
     const CellWrapper = styled('div')`
         min-width: 140px;
-        min-height: 80px;
-        background-color: ${props => props.isWeekend ? '#272829' : '#1e1f21'};
+        min-height: ${props => props.isHeader ? 24 : 80}px;
+        background-color: ${props => props.isWeekDay ? '#272829' : '#1e1f21'};
         color: #fff;
     `;
 
     const RowInCEll = styled('div')`
         display: flex;
         justify-content: ${props => props.justifyContent ? props.justifyContent : 'flex-start'};
+        ${props => props.pr && `padding-right: ${props.pr * 8}px`}
     `;
     const DayWrapper = styled('div')`
         height: 33px;
@@ -48,24 +49,36 @@ export default function Main({ startDay }) {
     const isCurrentday = (day) => moment().isSame(day, 'day'); //! "isSame" - сравнивает элементы на идентичность
 
     return (
-        <GridWrapper>
-            {
-                daysArray.map((dayItem) => (
-                    <CellWrapper
-                        key={dayItem.format('DDMMYYYY')}
-                        isWeekend={dayItem.day() === 6 || dayItem.day() === 0}
-                    >
-                        <RowInCEll justifyContent={'flex-end'}>
-                            <DayWrapper>
-                                {!isCurrentday(dayItem) && dayItem.format('DD')}
-
-                                {isCurrentday(dayItem) &&
-                                    <CurrentDay>{dayItem.format('DD')}</CurrentDay>}
-                            </DayWrapper>
+        <>
+            <GridWrapper isHeader>
+                {[...Array(7)].map((_, i) => (
+                    <CellWrapper isHeader>
+                        <RowInCEll justifyContent={'flex-end'} pr={1}>
+                            {moment().day(i + 1).format('ddd')}
                         </RowInCEll>
                     </CellWrapper>
-                ))
-            }
-        </GridWrapper>
+                ))}
+            </GridWrapper>
+
+            <GridWrapper>
+                {
+                    daysArray.map((dayItem) => (
+                        <CellWrapper
+                            isWeekDay={dayItem.day() === 6 || dayItem.day() === 0}
+                            key={dayItem.unix()}
+                        >
+                            <RowInCEll justifyContent={'flex-end'}>
+                                <DayWrapper>
+                                    {!isCurrentday(dayItem) && dayItem.format('DD')}
+
+                                    {isCurrentday(dayItem) &&
+                                        <CurrentDay>{dayItem.format('DD')}</CurrentDay>}
+                                </DayWrapper>
+                            </RowInCEll>
+                        </CellWrapper>
+                    ))
+                }
+            </GridWrapper>
+        </>
     )
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import moment from 'moment'
 import Monitor from '../../Monitor/monitor'
 import Header from '../Header/header'
@@ -14,13 +14,24 @@ export default function App() {
   `;
 
   moment.updateLocale('en', { week: { dow: 1 } }) //! "updateLocale"- Определяет с какого дня недели начинается месяц
-  const today = moment();
+  // const today = moment();
+  const [today, setToday] = useState(moment())
   const startDay = today.clone().startOf('month').startOf('week');
+
+
+  const prevHundler = () => setToday(prev => prev.clone().subtract(1, 'month'));
+  const todayHundler = () => setToday(moment());
+  const nextHundler = () => setToday(next => next.clone().add(1, 'month'));
 
   return (
     <ShadowWrapper>
       <Header />
-      <Monitor today={today} />
+      <Monitor
+        today={today}
+        prevHundler={prevHundler}
+        todayHundler={todayHundler}
+        nextHundler={nextHundler}
+      />
       <Main startDay={startDay} />
     </ShadowWrapper>
   )

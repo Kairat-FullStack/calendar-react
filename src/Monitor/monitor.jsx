@@ -27,9 +27,11 @@ const ButtonWrapper = styled('button')`
     border-radius: 4px;
     color: #E6E6E6;
     padding: 0px 10px;
+    cursor: pointer;
+    outline: unset;
 `;
 
-export default function Monitor({today}) {
+export default function Monitor({ today, prevHundler, todayHundler, nextHundler }) {
 
     return (
         <DivWrapper>
@@ -38,9 +40,9 @@ export default function Monitor({today}) {
                 <TextWrapper>{today.format('YYYY')}</TextWrapper>
             </div>
             <div>
-                <ButtonWrapper> &lt; </ButtonWrapper>
-                <ButtonWrapper>Today</ButtonWrapper>
-                <ButtonWrapper> &gt; </ButtonWrapper>
+                <ButtonWrapper onClick={prevHundler}> &lt; </ButtonWrapper>
+                <ButtonWrapper onClick={todayHundler}>Today</ButtonWrapper>
+                <ButtonWrapper onClick={nextHundler}> &gt; </ButtonWrapper>
             </div>
         </DivWrapper>
     )
