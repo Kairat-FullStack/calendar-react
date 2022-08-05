@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react'
 import styled from 'styled-components';
 
-export default function Main({ startDay }) {
+export default function Main({ startDay, today }) {
     const GridWrapper = styled('div')`
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -15,7 +15,7 @@ export default function Main({ startDay }) {
         min-width: 140px;
         min-height: ${props => props.isHeader ? 24 : 80}px;
         background-color: ${props => props.isWeekDay ? '#272829' : '#1e1f21'};
-        color: #fff;
+        color: ${props => props.isSelectedMonth ? '#DDDDDD' : '#555759'};
     `;
 
     const RowInCEll = styled('div')`
@@ -44,15 +44,16 @@ export default function Main({ startDay }) {
     const day = startDay.clone().subtract(1, 'day') //! "subtract" - вычитает дни
 
     const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone());
-    console.log('daysArray: ', daysArray);
+    // console.log('daysArray: ', daysArray);
 
     const isCurrentday = (day) => moment().isSame(day, 'day'); //! "isSame" - сравнивает элементы на идентичность
+    const isSelectedMonth = (day) => today.isSame(day, 'month');
 
     return (
         <>
             <GridWrapper isHeader>
                 {[...Array(7)].map((_, i) => (
-                    <CellWrapper isHeader>
+                    <CellWrapper isHeader isSelectedMonth>
                         <RowInCEll justifyContent={'flex-end'} pr={1}>
                             {moment().day(i + 1).format('ddd')}
                         </RowInCEll>
@@ -66,6 +67,7 @@ export default function Main({ startDay }) {
                         <CellWrapper
                             isWeekDay={dayItem.day() === 6 || dayItem.day() === 0}
                             key={dayItem.unix()}
+                            isSelectedMonth={isSelectedMonth(dayItem)}
                         >
                             <RowInCEll justifyContent={'flex-end'}>
                                 <DayWrapper>

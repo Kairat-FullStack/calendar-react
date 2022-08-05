@@ -32,7 +32,7 @@ export default function App() {
         todayHundler={todayHundler}
         nextHundler={nextHundler}
       />
-      <Main startDay={startDay} />
+      <Main startDay={startDay} today={today}/>
     </ShadowWrapper>
   )
 }
