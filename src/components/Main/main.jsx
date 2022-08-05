@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react'
 import styled from 'styled-components';
 
-export default function Main({ startDay, today }) {
+export default function Main({ startDay, today, totalDays, events }) {
     const GridWrapper = styled('div')`
         display: grid;
         grid-template-columns: repeat(7, 1fr);
@@ -20,6 +20,7 @@ export default function Main({ startDay, today }) {
 
     const RowInCEll = styled('div')`
         display: flex;
+        flex-direction: column;
         justify-content: ${props => props.justifyContent ? props.justifyContent : 'flex-start'};
         ${props => props.pr && `padding-right: ${props.pr * 8}px`}
     `;
@@ -41,9 +42,35 @@ export default function Main({ startDay, today }) {
         align-items: center;
     `;
 
+    const ShowDayWrapper = styled('div')`
+        display: flex;
+        justify-content: flex-end;
+    `;
+
+    const EventListWrapper = styled('ul')`
+        margin: unset;
+        list-style-position: inside;
+        padding-left: 4px;
+    `;
+    const EventItemWrapper = styled('button')`
+        position: relative;
+        left: -14px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 114px;
+        border: unset;
+        background: unset;
+        color: #DDDDDD;
+        cursor: pointer;
+        margin: 0;
+        padding: 0;
+        text-align: left;
+    `;
+
     const day = startDay.clone().subtract(1, 'day') //! "subtract" - вычитает дни
 
-    const daysArray = [...Array(42)].map(() => day.add(1, 'day').clone());
+    const daysArray = [...Array(totalDays)].map(() => day.add(1, 'day').clone());
     // console.log('daysArray: ', daysArray);
 
     const isCurrentday = (day) => moment().isSame(day, 'day'); //! "isSame" - сравнивает элементы на идентичность
@@ -70,12 +97,30 @@ export default function Main({ startDay, today }) {
                             isSelectedMonth={isSelectedMonth(dayItem)}
                         >
                             <RowInCEll justifyContent={'flex-end'}>
-                                <DayWrapper>
-                                    {!isCurrentday(dayItem) && dayItem.format('DD')}
-
-                                    {isCurrentday(dayItem) &&
-                                        <CurrentDay>{dayItem.format('DD')}</CurrentDay>}
-                                </DayWrapper>
+                                <ShowDayWrapper>
+                                    <DayWrapper>
+                                        {
+                                            isCurrentday(dayItem) ? (
+                                                <CurrentDay>{dayItem.format('DD')}</CurrentDay>
+                                            ) : (
+                                                dayItem.format('DD')
+                                            )
+                                        }
+                                    </DayWrapper>
+                                </ShowDayWrapper>
+                                <EventListWrapper>
+                                    {
+                                        events
+                                            .filter(event => event.date >= dayItem.format('X') && event.date <= dayItem.clone().endOf('day').format('X'))
+                                            .map(event => (
+                                                <li key={event.id}>
+                                                    <EventItemWrapper>
+                                                        {event.title}
+                                                    </EventItemWrapper>
+                                                </li>
+                                            ))
+                                    }
+                                </EventListWrapper>
                             </RowInCEll>
                         </CellWrapper>
                     ))

@@ -24,3 +24,20 @@ code {
   justify-content: center;
   align-items: center;
 }
+
+
+.e {
+  position: relative;
+  left: -14px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 114px;
+  border: unset;
+  background: unset;
+  color: #DDDDDD;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+
+}

@@ -31,7 +31,7 @@ const ButtonWrapper = styled('button')`
     outline: unset;
 `;
 
-export default function Monitor({ today, prevHundler, todayHundler, nextHundler }) {
+export default function Monitor({ today, prevHundler, todayHundler, nextHundler, totalDays }) {
 
     return (
         <DivWrapper>
