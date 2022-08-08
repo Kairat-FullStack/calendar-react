@@ -1,8 +1,46 @@
 {
-    "events": [
-        {"id": 1, "title": "name title1", "description": "name description1", "date": 1659668634},
-        {"id": 2, "title": "name title2", "description": "name description2", "date": 1659669000},
-        {"id": 3, "title": "Jul ", "description": "name description3", "date": 1656990234},
-        {"id": 4, "title": "september", "description": "name description4", "date": 1664360154}
-    ]
+  "events": [
+    {
+      "title": "asfsadf",
+      "description": "dsfasf",
+      "date": "",
+      "id": 7
+    },
+    {
+      "title": "asasf",
+      "description": "dasf",
+      "date": "",
+      "id": 8
+    },
+    {
+      "title": "asfasdf",
+      "description": "dzdgasdf",
+      "date": "",
+      "id": 9
+    },
+    {
+      "title": "wsafdsafs",
+      "description": "asdf",
+      "date": "Invalid date",
+      "id": 20
+    },
+    {
+      "title": "safsa",
+      "description": "dsdadasd",
+      "date": null,
+      "id": 21
+    },
+    {
+      "title": "sadfasf",
+      "description": "dsvcsdaxfc",
+      "date": null,
+      "id": 22
+    },
+    {
+      "title": "sadfsd",
+      "description": "asdfsdf",
+      "date": "1660154400",
+      "id": 23
+    }
+  ]
 }
