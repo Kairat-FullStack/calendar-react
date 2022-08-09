@@ -8,7 +8,6 @@ import styled from 'styled-components'
 const URL = 'http://localhost:5000';
 const totalDays = 42;
 
-
 const ShadowWrapper = styled('div')`
 border-radius: 8px;
 overflow: hidden;

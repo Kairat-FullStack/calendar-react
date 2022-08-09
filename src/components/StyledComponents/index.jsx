@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const CellWrapper = styled('div')`
     min-width: 140px;
-    min-height: ${props => props.isHeader ? 24 : 95}px;
+    height: ${props => props.isHeader ? 24 : 95}px;
+    overflow: auto;
     background-color: ${props => props.isWeekDay ? '#272829' : '#1e1f21'};
     color: ${props => props.isSelectedMonth ? '#DDDDDD' : '#555759'};
 `;

@@ -74,7 +74,6 @@ export default function CalendarCell({ dayItem, today, openFormHandler, events }
                     <EventListWrapper>
                         {
                             events
-                                .slice(0, 2)
                                 .map(event => (
                                     <li key={event.id}>
                                         <EventItemWrapper onClick={(e) => openFormHandler('Update', event,)}>
@@ -83,18 +82,18 @@ export default function CalendarCell({ dayItem, today, openFormHandler, events }
                                     </li>
                                 ))
                         }
-                        {
-                            events.length > 2 ? (
+                        {/* {
+                            events.length > 2 ? ( 
                                 <li key="show more" >
                                     <EventItemWrapper>
                                         Show more...
                                     </EventItemWrapper>
                                 </li>
                             ) : null
-                        }
+                        } */}
                     </EventListWrapper>
                 </RowInCEll>
             </CellWrapper>
-        </div >
+        </div>
     )
 }
